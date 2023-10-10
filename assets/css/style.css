@@ -34,3 +34,7 @@ p {
 .container-game {
     display: none;
 }
+
+.answer-message {
+    display: none;
+}

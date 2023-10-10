@@ -15,6 +15,7 @@ var choice1GameButtonEl = document.createElement("button");
 var choice2GameButtonEl = document.createElement("button");
 var choice3GameButtonEl = document.createElement("button");
 var choice4GameButtonEl = document.createElement("button");
+var divMessageEl = document.createElement("div");
 
 // Timer elements
 var divTimerEl = document.createElement("div");
@@ -40,6 +41,7 @@ divGameEl.appendChild(choice1GameButtonEl);
 divGameEl.appendChild(choice2GameButtonEl);
 divGameEl.appendChild(choice3GameButtonEl);
 divGameEl.appendChild(choice4GameButtonEl);
+mainGameEl.appendChild(divMessageEl);
 
 // Append timer elements
 mainGameEl.appendChild(divTimerEl);
@@ -51,32 +53,43 @@ playGameButtonEl.setAttribute("class", "button");
 
 // Set main game elements attributes
 mainGameEl.setAttribute("class", "container-game");
+divGameEl.setAttribute("class", "container-checkpoint");
 choice1GameButtonEl.setAttribute("class", "button");
 choice2GameButtonEl.setAttribute("class", "button");
 choice3GameButtonEl.setAttribute("class", "button");
 choice4GameButtonEl.setAttribute("class", "button");
+divMessageEl.setAttribute("class", "answer-message");
 
-var questions = {
 
-  question1: {
+
+// Global variables
+var isWin = false;
+
+var questionIndex = 0;
+var currentQuestion;
+
+var timerInterval;
+var secondsLeft;
+
+var questions = [
+  {
     question: "Which of these is NOT an example of an HTML element?",
     choices: ["<h1>", "<h2>", "<h3>", "<h4>"],
     answer: "<h1>",
   },
 
-  question2: {
+  {
     question: "This is another of the following?",
     choices: ["answer1", "answer2", "answer3", "answer4"],
     answer: "answer3",
   },
 
-  question3: {
+  {
     question: "Which of these is NOT an example of an HTML element?",
     choices: ["<h1>", "<h2>", "<h3>", "<h4>"],
     answer: "<h1>",
   },
-
-};
+];
 
 
 
@@ -86,31 +99,29 @@ function startGame() {
   mainMenuEl.setAttribute("style", "display:none");
   mainGameEl.setAttribute("style", "display:block");
 
+  isWin = false;
   secondsLeft = 75;
 
-  renderRandomQuestion();
+  currentQuestion = renderQuestion(questionIndex);
   setTimer();
 
 };
 
 
 
-// Gets random question from object and renders it
-function renderRandomQuestion() {
+// Gets question from index and renders it
+function renderQuestion(index) {
 
-  // Gets random question from object
-  var randomKey = Object.keys(questions)[Math.floor(Math.random() * Object.keys(questions).length)];
-  var randomQuestion = questions[randomKey];
+  var currentQuestion = questions[index];
 
   // Renders random question
-  h2GameEl.textContent = randomQuestion.question;
-  choice1GameButtonEl.textContent = randomQuestion.choices[0];
-  choice2GameButtonEl.textContent = randomQuestion.choices[1];
-  choice3GameButtonEl.textContent = randomQuestion.choices[2];
-  choice4GameButtonEl.textContent = randomQuestion.choices[3];
+  h2GameEl.textContent = currentQuestion.question;
+  choice1GameButtonEl.textContent = currentQuestion.choices[0];
+  choice2GameButtonEl.textContent = currentQuestion.choices[1];
+  choice3GameButtonEl.textContent = currentQuestion.choices[2];
+  choice4GameButtonEl.textContent = currentQuestion.choices[3];
 
-  return randomQuestion;
-
+  return currentQuestion;
 };
 
 
@@ -137,4 +148,41 @@ function setTimer() {
 
 
 
+function checkAnswer(event) {
+
+  var element = event.target;
+
+  if (currentQuestion.answer === element.textContent) {
+    divMessageEl.textContent = "Correct!";
+    // Set win counter  
+  } else {
+    divMessageEl.textContent = "Incorrect!";
+    // Subtract 10 seconds from timer
+    secondsLeft -= 10;
+    // Set lose counter
+  }
+
+  divMessageEl.setAttribute("style", "display:block");
+
+  setTimeout(function() {
+    divMessageEl.setAttribute("style", "display:none");
+  }, 1000);
+
+  if (questionIndex < questions.length - 1) {
+    questionIndex++;
+    renderQuestion(questionIndex);
+  } else {
+    clearInterval(timerInterval);
+    checkWin();
+  }
+
+};
+
+
+
 playGameButtonEl.addEventListener("click", startGame);
+
+choice1GameButtonEl.addEventListener("click", checkAnswer);
+choice2GameButtonEl.addEventListener("click", checkAnswer);
+choice3GameButtonEl.addEventListener("click", checkAnswer);
+choice4GameButtonEl.addEventListener("click", checkAnswer);
