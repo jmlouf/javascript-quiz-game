@@ -6,6 +6,14 @@ var h2MenuEl = document.createElement("h2");
 var pMenuEl = document.createElement("p");
 var playGameButtonEl = document.createElement("button");
 
+// Main stats elements
+var mainStatsEl = document.createElement("main");
+var h2StatsEl = document.createElement("h2");
+var pWinsStatsEl = document.createElement("p");
+var pLossesStatsEl = document.createElement("p");
+var divStatsEl = document.createElement("div");
+var resetStatsButtonEl = document.createElement("button"); 
+
 // Main game elements
 var mainGameEl = document.createElement("main");
 var h2GameEl = document.createElement("h2");
@@ -26,11 +34,25 @@ h2MenuEl.textContent = "JavaScript Quiz Game";
 pMenuEl.textContent = "Click the button to start a new game!";
 playGameButtonEl.textContent = "Play";
 
+// Render main stats elements
+h2StatsEl.textContent = "Stats";
+pWinsStatsEl.textContent = "Wins: 0";
+pLossesStatsEl.textContent = "Losses: 0";
+resetStatsButtonEl.textContent = "Reset";
+
 // Append main menu elements
 body.appendChild(mainMenuEl);
 mainMenuEl.appendChild(h2MenuEl);
 mainMenuEl.appendChild(pMenuEl);
 mainMenuEl.appendChild(playGameButtonEl);
+
+// Append main stats elements
+body.appendChild(mainStatsEl);
+mainStatsEl.appendChild(h2StatsEl);
+mainStatsEl.appendChild(pWinsStatsEl);
+mainStatsEl.appendChild(pLossesStatsEl);
+mainStatsEl.appendChild(divStatsEl);
+divStatsEl.appendChild(resetStatsButtonEl);
 
 // Append main game elements
 body.appendChild(mainGameEl);
@@ -50,6 +72,10 @@ divTimerEl.appendChild(timerEl);
 // Set main menu elements attributes
 mainMenuEl.setAttribute("class", "container-menu");
 playGameButtonEl.setAttribute("class", "button");
+
+// Set main stats elements attributes
+mainStatsEl.setAttribute("class", "container-stats");
+resetStatsButtonEl.setAttribute("class", "button");
 
 // Set main game elements attributes
 mainGameEl.setAttribute("class", "container-game");
@@ -93,17 +119,69 @@ var questions = [
 
 
 
-// Renders a random question and starts timer
-function startGame() {
+// Updates win count  and sets win count to user's local storage
+function setWins() {
+
+  wins.textContent = winsCounter;
+  localStorage.setItem("winsCount", winsCounter);
+
+};
+
+
+
+// Updates loss count  and sets loss count to user's local storage
+function setLosses() {
+
+  losses.textContent = lossesCounter;
+  localStorage.setItem("lossesCount", lossesCounter);
+
+};
+
+
+
+// Used by init() function
+function getWins() {
+
+  // If 
+  var storedWins = localStorage.getItem("winsCount");
+
+  if (storedWins == null) {
+    winsCounter = 0;
+  } else {
+    winsCounter = storedWins;
+  }
+
+  pWinsStatsEl.textContent = winsCounter;
+
+};
+
+
+
+function getLosses() {
+
+  var storedLosses = localStorage.getItem("lossesCount");
+
+  if (storedLosses == null) {
+    lossesCounter = 0;
+  } else {
+    lossesCounter = storedLosses;
+  }
+
+  pLossesStatsEl.textContent = lossesCounter;
+
+  // String to display
   
-  mainMenuEl.setAttribute("style", "display:none");
-  mainGameEl.setAttribute("style", "display:block");
 
-  isWin = false;
-  secondsLeft = 75;
 
-  currentQuestion = renderQuestion(questionIndex);
-  setTimer();
+};
+
+
+
+function init() {
+
+  // Initializes game with wins/losses via local storage
+  getWins();
+  getLosses();
 
 };
 
@@ -180,7 +258,30 @@ function checkAnswer(event) {
 
 
 
+// Renders a random question and starts timer
+function startGame() {
+  
+  mainMenuEl.setAttribute("style", "display:none");
+  mainGameEl.setAttribute("style", "display:block");
+
+  isWin = false;
+  secondsLeft = 75;
+
+  currentQuestion = renderQuestion(questionIndex);
+  setTimer();
+
+};
+
+
+
 playGameButtonEl.addEventListener("click", startGame);
+
+
+
+// Calls the init() function when the page loads
+init();
+
+
 
 choice1GameButtonEl.addEventListener("click", checkAnswer);
 choice2GameButtonEl.addEventListener("click", checkAnswer);
