@@ -89,32 +89,44 @@ divMessageEl.setAttribute("class", "answer-message");
 
 
 // Global variables
-var isWin = false;
+var isWin;
 
-var questionIndex = 0;
 var currentQuestion;
+var index;
 
 var timerInterval;
 var secondsLeft;
 
 var questions = [
   {
-    question: "Which of these is NOT an example of an HTML element?",
-    choices: ["<h1>", "<h2>", "<h3>", "<h4>"],
-    answer: "<h1>",
+    question: "JavaScript is an ______ language.",
+    choices: ["Object-Oriented", "Object-Based", "Procedural", "None of the above"],
+    answer: "Object-Oriented",
   },
 
   {
-    question: "This is another of the following?",
-    choices: ["answer1", "answer2", "answer3", "answer4"],
-    answer: "answer3",
+    question: "Which of the following keywords are used to define a variable in JavaScript?",
+    choices: ["var", "let", "Both A and B", "None of the above"],
+    answer: "Both A and B",
   },
 
   {
-    question: "Which of these is NOT an example of an HTML element?",
-    choices: ["<h1>", "<h2>", "<h3>", "<h4>"],
-    answer: "<h1>",
+    question: "Which of the following methods is used to access HTML elements using JavaScript?",
+    choices: ["getElementbyId()", "getElementsByClassName()", "Both A and B", "None of the above"],
+    answer: "Both A and B",
   },
+
+  {
+    question: "Upon encountering empty statements, what does the JavaScript Interpreter do?",
+    choices: ["Throws an error", "Ignores the statements", "Gives a warning", "None of the above"],
+    answer: "Ignores the statements",
+  },
+
+  {
+    question: "Which of the following methods can be used to display data in some form using JavaScript?",
+    choices: ["document.write()", "console.log()", "window.alert()", "All of the above"],
+    answer: "All of the above",
+  }
 ];
 
 
@@ -122,7 +134,7 @@ var questions = [
 // Updates win count  and sets win count to user's local storage
 function setWins() {
 
-  wins.textContent = winsCounter;
+  pWinsStatsEl.textContent = winsCounter;
   localStorage.setItem("winsCount", winsCounter);
 
 };
@@ -132,7 +144,7 @@ function setWins() {
 // Updates loss count  and sets loss count to user's local storage
 function setLosses() {
 
-  losses.textContent = lossesCounter;
+  pLossesStatsEl.textContent = lossesCounter;
   localStorage.setItem("lossesCount", lossesCounter);
 
 };
@@ -151,7 +163,9 @@ function getWins() {
     winsCounter = storedWins;
   }
 
-  pWinsStatsEl.textContent = winsCounter;
+  var winsMessage = "Wins: " + winsCounter;
+
+  pWinsStatsEl.textContent = winsMessage;
 
 };
 
@@ -167,11 +181,9 @@ function getLosses() {
     lossesCounter = storedLosses;
   }
 
-  pLossesStatsEl.textContent = lossesCounter;
+  var lossesMessage = "Losses: " + lossesCounter;
 
-  // String to display
-  
-
+  pLossesStatsEl.textContent = lossesMessage;
 
 };
 
@@ -186,18 +198,46 @@ function init() {
 };
 
 
+function winGame() {
+  endGameMessageEl.textContent = "You Win!";
+  winsCounter++
+  setWins();
+};
+
+function loseGame() {
+  endGameMessageEl.textContent = "Game Over!";
+  lossesCounter++
+  setLosses();
+};
+
+
+
+function checkWin() {
+  if (questionIndex < questions.length - 1) {
+    questionIndex++;
+    renderQuestion(questionIndex);
+  } else {
+    var isWin = true;
+  }
+
+  return isWin;
+};
+
+
 
 // Gets question from index and renders it
 function renderQuestion(index) {
 
   var currentQuestion = questions[index];
 
-  // Renders random question
-  h2GameEl.textContent = currentQuestion.question;
-  choice1GameButtonEl.textContent = currentQuestion.choices[0];
-  choice2GameButtonEl.textContent = currentQuestion.choices[1];
-  choice3GameButtonEl.textContent = currentQuestion.choices[2];
-  choice4GameButtonEl.textContent = currentQuestion.choices[3];
+  // Renders question from index
+  h2GameEl.textContent = questions[questionIndex].question;
+
+  // Renders choices from index
+  choice1GameButtonEl.textContent = questions[questionIndex].choices[0];
+  choice2GameButtonEl.textContent = questions[questionIndex].choices[1];
+  choice3GameButtonEl.textContent = questions[questionIndex].choices[2];
+  choice4GameButtonEl.textContent = questions[questionIndex].choices[3];
 
   return currentQuestion;
 };
@@ -215,13 +255,15 @@ function setTimer() {
         clearInterval(timerInterval);
         winGame();
       }
-    }
+    };
 
     if (secondsLeft === 0) {
       clearInterval(timerInterval);
       loseGame();
     }
   }, 1000);
+
+  return timerInterval;
 };
 
 
@@ -230,9 +272,9 @@ function checkAnswer(event) {
 
   var element = event.target;
 
-  if (currentQuestion.answer === element.textContent) {
+  if (currentQuestion.answer == element.textContent) {
     divMessageEl.textContent = "Correct!";
-    // Set win counter  
+    // Set win counter
   } else {
     divMessageEl.textContent = "Incorrect!";
     // Subtract 10 seconds from timer
@@ -240,19 +282,13 @@ function checkAnswer(event) {
     // Set lose counter
   }
 
+  checkWin();
+
   divMessageEl.setAttribute("style", "display:block");
 
   setTimeout(function() {
     divMessageEl.setAttribute("style", "display:none");
   }, 1000);
-
-  if (questionIndex < questions.length - 1) {
-    questionIndex++;
-    renderQuestion(questionIndex);
-  } else {
-    clearInterval(timerInterval);
-    checkWin();
-  }
 
 };
 
@@ -260,15 +296,28 @@ function checkAnswer(event) {
 
 // Renders a random question and starts timer
 function startGame() {
-  
+
   mainMenuEl.setAttribute("style", "display:none");
   mainGameEl.setAttribute("style", "display:block");
 
   isWin = false;
   secondsLeft = 75;
 
+  questionIndex = 0;
+
   currentQuestion = renderQuestion(questionIndex);
   setTimer();
+
+};
+
+
+
+function endGame () {
+
+  mainGameEl.setAttribute("style", "display:none");
+  mainMenuEl.setAttribute("style", "display:block");
+
+  clearInterval(timerInterval);
 
 };
 
