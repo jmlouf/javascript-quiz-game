@@ -18,19 +18,16 @@
                 <button id="start-button">Start Game</button>
             </div>
 
-            <div class="display" id="quiz-display">
+            <div class="display hidden" id="quiz-display">
                 <div id="timer">Time: <span id="time-left">75</span> seconds</div>
-                <h2>Question</h2>
-                <div class="buttons-container" id="choices">
-                    <button class="choice"></button>
-                    <button class="choice"></button>
-                    <button class="choice"></button>
-                    <button class="choice"></button>
-                </div>
+                <div id="score">Score: <span id="your-score">0</span></div>
+                <h2 id="question">Question</h2>
+                <div class="choices-buttons" id="choices"></div>
+                <div class="answer-message hidden" id="answer-message"></div>
             </div>
 
-            <div class="display" id="results-display">
-                <h2>Your Score: <span id="score">0</span></h2>
+            <div class="display hidden" id="results-display">
+                <div id="final-score"></div>
                 <label for="initials">Enter Initials: </label>
                 <input type="text" id="initials">
                 <button id="submit-score">Submit</button>
