@@ -25,16 +25,6 @@ p {
     font-size: 20px;
 }
 
-/* Main menu container */
-.container-menu {
-    display: block;
-}
-
-/* Main game container */
-.container-game {
+.hidden {
     display: none;
-}
-
-.answer-message {
-    display: none;
-}
+};
