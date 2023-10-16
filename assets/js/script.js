@@ -90,6 +90,8 @@ var yourScore;
 
 function startGame() {
   currentQuestionIndex = 0;
+  
+  timeLeftEl.textContent = "75";
   timeLeft = 75;
 
   yourScoreEl.textContent = "0";
