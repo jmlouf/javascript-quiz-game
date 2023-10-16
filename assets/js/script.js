@@ -18,15 +18,45 @@ var questions = [
   },
 
   {
-    question: "Upon encountering empty statements, what does the JavaScript Interpreter do?",
-    choices: ["Throws an error", "Ignores the statements", "Gives a warning", "None of the above"],
-    answer: "Ignores the statements",
+    question: "Which symbol is used to separate JavaScript statements?",
+    choices: ["Comma (,)", "Colon (:)", "Hyphen (-)", "Semicolon (;)"],
+    answer: "Semicolon (;)",
   },
 
   {
     question: "Which of the following methods can be used to display data in some form using JavaScript?",
     choices: ["document.write()", "console.log()", "window.alert()", "All of the above"],
     answer: "All of the above",
+  },
+
+  {
+    question: "Which function is used to serialize an object into a JSON string in JavaScript?",
+    choices: ["stringify()", "parse()", "convert()", "None of the above"],
+    answer: "stringify()",
+  },
+
+  {
+    question: "How do you stop an interval timer in JavaScript?",
+    choices: ["clearInterval", "clearTimer", "intervalOver", "None of the above"],
+    answer: "clearInterval",
+  },
+
+  {
+    question: "How do you write a comment in JavaScript?",
+    choices: ["/* */", "//", "#", "$ $"],
+    answer: "//",
+  },
+
+  {
+    question: "Which of the following tags is used to write JavaScript code?",
+    choices: ["<script>", "<js>", "<javascript>", "java"],
+    answer: "<script>",
+  },
+
+  {
+    question: "Which event is related to the keyboard?",
+    choices: ["onfocus", "onclick", "onkeydown", "onkeypress"],
+    answer: "onkeydown",
   },
 ];
 
@@ -41,8 +71,9 @@ var startButtonEl = document.getElementById("start-button");
 
 var questionEl = document.getElementById("question");
 var choicesEl = document.getElementById("choices");
-var currentQuestionIndex = 0;
+var choiceButtonEl = document.getElementById("choice");
 var answerMessageEl = document.getElementById("answer-message");
+var currentQuestionIndex = 0;
 
 var timeLeftEl = document.getElementById("time-left");
 var timerInterval;
@@ -57,9 +88,7 @@ var initials;
 var yourScore;
 
 
-
 function startGame() {
-
   currentQuestionIndex = 0;
   timeLeft = 75;
 
@@ -77,9 +106,7 @@ function startGame() {
 };
 
 
-
 function getQuestion() {
-
   var currentQuestion = questions[currentQuestionIndex];
 
   questionEl.textContent = currentQuestion.question;
@@ -88,6 +115,7 @@ function getQuestion() {
   
   for (let i = 0; i < currentQuestion.choices.length; i++) {
     var choiceButtonEl = document.createElement("button");
+    choiceButtonEl.classList.add("choice-button");
     choiceButtonEl.textContent = currentQuestion.choices[i];
     choiceButtonEl.addEventListener("click", checkAnswer);
     choicesEl.appendChild(choiceButtonEl);
@@ -96,20 +124,21 @@ function getQuestion() {
 };
 
 
-
 function getTimer() {
-
   timerInterval = setInterval(function() {
     timeLeft--;
     timeLeftEl.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      checkWin();
+    }
+
   }, 1000);
 
 };
 
 
-
 function checkAnswer(event) {
-
   var selected = event.target.textContent;
   var currentQuestion = questions[currentQuestionIndex];
 
@@ -138,13 +167,11 @@ function checkAnswer(event) {
 };
 
 
-
 function checkWin() {
-
   if (timeLeft > 0) {
     clearInterval(timerInterval);
     winLoseDisplayEl.textContent = "You win.";
-  } else if (timeLeft <= 0) {
+  } else {
     clearInterval(timerInterval);
     winLoseDisplayEl.textContent = "You lose.";
   }
@@ -157,9 +184,7 @@ function checkWin() {
 };
 
 
-
 function getResults() {
-
   resultsDisplayEl.classList.remove("hidden");
 
   finalScoreEl.textContent = yourScore;
@@ -167,22 +192,17 @@ function getResults() {
 };
 
 
-
 function saveScore() {
-
   var myFinalScore = {
     yourScore: yourScore,
     initials: initials.value.trim(),
   };
 
   localStorage.setItem("myFinalScore", JSON.stringify(myFinalScore));
-
 };
 
 
-
 function renderLastFinalScore() {
-
   var lastFinalScore = JSON.parse(localStorage.getItem("myFinalScore"));
 
   if (lastFinalScore !== null) {
@@ -193,7 +213,6 @@ function renderLastFinalScore() {
 };
 
 
-
 submitScoreButtonEl.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -201,32 +220,23 @@ submitScoreButtonEl.addEventListener("click", function (event) {
   renderLastFinalScore();
 
   resetDisplay();
-
 });
 
 
-
 function resetDisplay() {
-
   resultsDisplayEl.classList.add("hidden");
   menuDisplayEl.classList.remove("hidden");
   quizDisplayEl.classList.add("hidden");
   winLoseDisplayEl.classList.add("hidden");
-
 };
-
 
 
 function init() {
-
   renderLastFinalScore();
-
 };
 
 
-
 init();
-
 
 
 startButtonEl.addEventListener("click", startGame);
