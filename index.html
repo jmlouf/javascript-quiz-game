@@ -11,44 +11,48 @@
     </head>
 
     <body>
-        <section class="container">
-            <div class="display" id="menu-display">
-                <h1>JavaScript Quiz</h1>
-                <p>Click the button to start a new game.</p>
-                <button id="start-button">Start Game</button>
-            </div>
-
-            <div class="display" id="last-score-display">
-                <p>Last Saved Score</p>
-                <p>Score: <span id="saved-last-final-score"></span></p>
-                <p>Initials: <span id="saved-last-initials"></span></p>
-            </div>
-
-            <div class="display hidden" id="quiz-display">
-                <div class="display hidden" id="win-lose-display"></div>
-                <div class="display hidden" id="quiz-content-display">
-                    <div id="timer">Time: <span id="time-left">75</span> seconds</div>
-                    <div id="score">Score: <span id="your-score">0</span></div>
-                    <h2 id="question">Question</h2>
-                    <div class="choices-buttons" id="choices"></div>
-                    <div class="answer-message hidden" id="answer-message"></div>
+        <main class="main">
+            <section class="game-container">
+                <div class="display" id="menu-display">
+                    <h1>JavaScript Quiz</h1>
+                    <p>Click the button to start a new game.</p>
+                    <button id="start-button">Start Game</button>
                 </div>
-            </div>
 
-            <div class="display hidden" id="results-display">
-                <form>
-                    <div>
-                        <label>Final Score: <span id="final-score">0</span></label>
+                <div class="display hidden" id="quiz-display">
+                    <div class="display hidden" id="win-lose-display"></div><br><br>
+                    <div class="display hidden" id="quiz-content-display">
+                        <div class="timer">Time: <span id="time-left">75</span> seconds</div>
+                        <div class="score">Score: <span id="your-score">0</span></div><br><br>
+                        <h2 id="question">Question</h2>
+                        <div class="choices" id="choices"></div><br>
+                        <div class="answer-message hidden" id="answer-message"></div>
                     </div>
-                    <div>
-                        <label for="initials">Enter Initials: </label>
-                        <input type="text" id="initials">
-                    </div>
-                    
-                    <button id="submit-score-button">Submit</button>
-                </form>
-            </div>
-        </section>
+                </div>
+
+                <div class="display hidden" id="results-display">
+                    <form>
+                        <div>
+                            <label>Final Score: <span id="final-score">0</span></label>
+                        </div><br>
+                        <div>
+                            <label for="initials">Enter Initials: </label>
+                            <input type="text" id="initials">
+                        </div><br><br>
+                        
+                        <button id="submit-score-button">Submit</button>
+                    </form>
+                </div><br><br>
+            </section>
+
+            <section class="score-container">
+                <div class="display" id="last-score-display">
+                    <p>Last Saved Score</p>
+                    <p>Score: <span id="saved-last-final-score"></span></p>
+                    <p>Initials: <span id="saved-last-initials"></span></p>
+                </div>
+            </section>
+        </main>
 
         <script src="./assets/js/script.js"></script>
     </body>

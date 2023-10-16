@@ -1,30 +1,88 @@
 body {
     display: block;
+    font-family: monospace;
+    font-size: 150%;
+    color: greenyellow;
     margin: 0px;
+    background-color: black;
+    padding: 2%;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
 }
-
-li {
-    float: left;
+  
+.game-container {
+    flex: 2;
+    position: fixed;
+    top: 25%;
+    width: 50%;
+    height: auto;
 }
-
-li a {
-    display: block;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-p {
-    font-size: 20px;
+  
+.score-container {
+    flex: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 15%;
+    height: 100vh; 
 }
 
 .hidden {
     display: none;
-};
+}
+
+#start-button {
+    font-family: monospace;
+    font-size: 100%;
+    background-color: greenyellow;
+    color: black;  
+}
+  
+#start-button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer; 
+}
+
+.choice-button {
+    display: flex;
+    flex-direction: column;
+    font-family: monospace;
+    font-size: 100%;
+    flex-shrink: 0;
+    background-color: greenyellow;
+    color: black;
+}
+  
+.choice-button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+#submit-score-button {
+    font-family: monospace;
+    font-size: 100%;
+    background-color: greenyellow;
+    color: black;
+}
+
+#submit-score-button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 504px) {
+    .game-container {
+        flex-direction: column;
+    }
+
+    .score-container {
+        flex-direction: column;
+    }
+}
