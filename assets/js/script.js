@@ -32,7 +32,10 @@ var questions = [
 
 var menuDisplayEl = document.getElementById("menu-display");
 var quizDisplayEl = document.getElementById("quiz-display");
+var quizContentDisplayEl = document.getElementById("quiz-content-display");
+var winLoseDisplayEl = document.getElementById("win-lose-display");
 var resultsDisplayEl = document.getElementById("results-display");
+var lastScoreDisplayEl = document.getElementById("last-score-display");
 
 var startButtonEl = document.getElementById("start-button");
 
@@ -47,18 +50,26 @@ var timeLeft;
 
 var yourScoreEl = document.getElementById("your-score");
 var finalScoreEl = document.getElementById("final-score");
+var initials = document.getElementById("initials");
 var submitScoreButtonEl = document.getElementById("submit-score-button");
+
+var initials;
 var yourScore;
 
 
 
 function startGame() {
 
+  currentQuestionIndex = 0;
+  timeLeft = 75;
+
+  yourScoreEl.textContent = "0";
+  yourScore = 0;
+
   menuDisplayEl.classList.add("hidden");
   quizDisplayEl.classList.remove("hidden");
-
-  timeLeft = 75;
-  yourScore = 0;
+  quizContentDisplayEl.classList.remove("hidden");
+  winLoseDisplayEl.classList.add("hidden");
 
   getQuestion();
   getTimer();
@@ -91,9 +102,6 @@ function getTimer() {
   timerInterval = setInterval(function() {
     timeLeft--;
     timeLeftEl.textContent = timeLeft;
-    if (timeLeft === 0) {
-      loseGame();
-    }
   }, 1000);
 
 };
@@ -135,32 +143,17 @@ function checkWin() {
 
   if (timeLeft > 0) {
     clearInterval(timerInterval);
-    winGame();
-  } else {
+    winLoseDisplayEl.textContent = "You win.";
+  } else if (timeLeft <= 0) {
     clearInterval(timerInterval);
-    loseGame();
+    winLoseDisplayEl.textContent = "You lose.";
   }
 
-};
-
-
-
-function winGame() {
-
-  quizDisplayEl.textContent = "You win.";
+  winLoseDisplayEl.classList.remove("hidden");
+  quizContentDisplayEl.classList.add("hidden");
 
   getResults();
 
-};
-
-
-
-function loseGame() {
-
-  quizDisplayEl.textContent = "You lose.";
-
-  getResults();
-  
 };
 
 
@@ -169,11 +162,70 @@ function getResults() {
 
   resultsDisplayEl.classList.remove("hidden");
 
-  var yourFinalScore = document.createElement("div");
-  yourFinalScore.textContent = "Final Score: " + yourScore;
-  finalScoreEl.appendChild(yourFinalScore);
+  finalScoreEl.textContent = yourScore;
 
 };
+
+
+
+function saveScore() {
+
+  var myFinalScore = {
+    yourScore: yourScore,
+    initials: initials.value.trim(),
+  };
+
+  localStorage.setItem("myFinalScore", JSON.stringify(myFinalScore));
+
+};
+
+
+
+function renderLastFinalScore() {
+
+  var lastFinalScore = JSON.parse(localStorage.getItem("myFinalScore"));
+
+  if (lastFinalScore !== null) {
+    document.getElementById("saved-last-initials").textContent = lastFinalScore.initials;
+    document.getElementById("saved-last-final-score").textContent = lastFinalScore.yourScore;
+  }
+
+};
+
+
+
+submitScoreButtonEl.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  saveScore(yourScore, initials);
+  renderLastFinalScore();
+
+  resetDisplay();
+
+});
+
+
+
+function resetDisplay() {
+
+  resultsDisplayEl.classList.add("hidden");
+  menuDisplayEl.classList.remove("hidden");
+  quizDisplayEl.classList.add("hidden");
+  winLoseDisplayEl.classList.add("hidden");
+
+};
+
+
+
+function init() {
+
+  renderLastFinalScore();
+
+};
+
+
+
+init();
 
 
 
