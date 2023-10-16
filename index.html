@@ -18,19 +18,35 @@
                 <button id="start-button">Start Game</button>
             </div>
 
+            <div class="display" id="last-score-display">
+                <p>Last Saved Score</p>
+                <p>Score: <span id="saved-last-final-score"></span></p>
+                <p>Initials: <span id="saved-last-initials"></span></p>
+            </div>
+
             <div class="display hidden" id="quiz-display">
-                <div id="timer">Time: <span id="time-left">75</span> seconds</div>
-                <div id="score">Score: <span id="your-score">0</span></div>
-                <h2 id="question">Question</h2>
-                <div class="choices-buttons" id="choices"></div>
-                <div class="answer-message hidden" id="answer-message"></div>
+                <div class="display hidden" id="win-lose-display"></div>
+                <div class="display hidden" id="quiz-content-display">
+                    <div id="timer">Time: <span id="time-left">75</span> seconds</div>
+                    <div id="score">Score: <span id="your-score">0</span></div>
+                    <h2 id="question">Question</h2>
+                    <div class="choices-buttons" id="choices"></div>
+                    <div class="answer-message hidden" id="answer-message"></div>
+                </div>
             </div>
 
             <div class="display hidden" id="results-display">
-                <div id="final-score"></div>
-                <label for="initials">Enter Initials: </label>
-                <input type="text" id="initials">
-                <button id="submit-score">Submit</button>
+                <form>
+                    <div>
+                        <label>Final Score: <span id="final-score">0</span></label>
+                    </div>
+                    <div>
+                        <label for="initials">Enter Initials: </label>
+                        <input type="text" id="initials">
+                    </div>
+                    
+                    <button id="submit-score-button">Submit</button>
+                </form>
             </div>
         </section>
 
