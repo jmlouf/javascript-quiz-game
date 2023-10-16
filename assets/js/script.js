@@ -215,6 +215,14 @@ function renderLastFinalScore() {
 };
 
 
+function resetDisplay() {
+  resultsDisplayEl.classList.add("hidden");
+  menuDisplayEl.classList.remove("hidden");
+  quizDisplayEl.classList.add("hidden");
+  winLoseDisplayEl.classList.add("hidden");
+};
+
+
 submitScoreButtonEl.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -223,14 +231,6 @@ submitScoreButtonEl.addEventListener("click", function (event) {
 
   resetDisplay();
 });
-
-
-function resetDisplay() {
-  resultsDisplayEl.classList.add("hidden");
-  menuDisplayEl.classList.remove("hidden");
-  quizDisplayEl.classList.add("hidden");
-  winLoseDisplayEl.classList.add("hidden");
-};
 
 
 function init() {
