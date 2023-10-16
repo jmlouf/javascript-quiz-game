@@ -64,6 +64,10 @@ body {
     cursor: pointer;
 }
 
+#answer-message {
+    color: white;
+}
+
 #submit-score-button {
     font-family: monospace;
     font-size: 100%;

@@ -7,21 +7,20 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>JavaScript Quiz Game</title>
         <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-        <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     </head>
 
     <body>
         <main class="main">
             <section class="game-container">
-                <div class="display" id="menu-display">
+                <div id="menu-display">
                     <h1>JavaScript Quiz</h1>
                     <p>Click the button to start a new game.</p>
                     <button id="start-button">Start Game</button>
                 </div>
 
                 <div class="display hidden" id="quiz-display">
-                    <div class="display hidden" id="win-lose-display"></div><br><br>
-                    <div class="display hidden" id="quiz-content-display">
+                    <div class="hidden" id="win-lose-display"></div><br><br>
+                    <div class="hidden" id="quiz-content-display">
                         <div class="timer">Time: <span id="time-left">75</span> seconds</div>
                         <div class="score">Score: <span id="your-score">0</span></div><br><br>
                         <h2 id="question">Question</h2>
@@ -30,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="display hidden" id="results-display">
+                <div class="hidden" id="results-display">
                     <form>
                         <div>
                             <label>Final Score: <span id="final-score">0</span></label>
@@ -46,7 +45,7 @@
             </section>
 
             <section class="score-container">
-                <div class="display" id="last-score-display">
+                <div id="last-score-display">
                     <p>Last Saved Score</p>
                     <p>Score: <span id="saved-last-final-score"></span></p>
                     <p>Initials: <span id="saved-last-initials"></span></p>

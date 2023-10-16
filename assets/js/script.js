@@ -145,11 +145,11 @@ function checkAnswer(event) {
   var currentQuestion = questions[currentQuestionIndex];
 
   if (selected === currentQuestion.answer) {
-    answerMessageEl.textContent = "Correct."
+    answerMessageEl.textContent = "Correct"
     yourScore += 10;
     yourScoreEl.textContent = yourScore;
   } else {
-    answerMessageEl.textContent = "Incorrect."
+    answerMessageEl.textContent = "Incorrect"
     timeLeft -= 10;
   }
 
@@ -170,6 +170,7 @@ function checkAnswer(event) {
 
 
 function checkWin() {
+
   if (timeLeft > 0) {
     clearInterval(timerInterval);
     winLoseDisplayEl.textContent = "You win.";
