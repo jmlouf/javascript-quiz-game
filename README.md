@@ -1,4 +1,4 @@
-# Project Name
+# JavaScript Quiz Game
 
 ## Description
 
