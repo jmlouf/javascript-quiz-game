@@ -2,49 +2,23 @@
 
 ## Description
 
-[Write me a brief description section and usage section for the following code:
+This is a multiple choice quiz game built with JavaScript, HTML, and CSS. The game presents the user with a series of multiple choice questions about JavaScript, keeps track of the score and time remaining, and saves the final score along with initials in local storage.
 
-<insert code>]
+When the game starts, the user is presented with a question and four possible choices. After selecting an answer, the user is notified if they were correct or incorrect. If correct, 10 points are added to the score. If incorrect, 10 seconds are subtracted from the time remaining.
 
-This code generates a random password based on user input for length and character types.
-
-It first defines some global variables to reference the HTML elements for the "Generate" and rer"Re-roll" buttons, as well as variables to store the password length and character types.
-
-The getLength() function prompts the user for the password length and validates it is between 8 and 128 characters. The getCharTypes() function prompts the user to select character types for the password and validates at least one is chosen.
-
-The generatePassword() function contains the logic to randomly generate a password string using the global length and types variables. It defines character pools for each type, gets a random character from the appropriate pool based on the selected types, and concatenates them to build the password.
-
-The writePassword() function calls the prompt functions, generates the password, and updates the #password element with the generated password.
-
-The rewritePassword() function regenerates a new password using the same password criteria, length and character types, without reprompting the user. It is called when the "Re-roll" button is clicked.
-
-Event listeners are added to call the functions when the buttons are clicked.
-
-Hopefully, this code will be put to good use with all the useless accounts that I have...
+The game ends when all questions have been answered or the timer reaches 0. At the end, the final score and initials are saved to localStorage. The last saved score and initials are displayed on the screen.
 
 ## Usage
 
-[Write me a brief description section and usage section for the following code:
+To use the quiz application:
 
-<insert code>]
+1. Click the "Start Game" button to begin the quiz.
+2. Select an answer for each multiple choice question before time runs out.
+3. At the end of the game, enter initials and click "Submit" to save final score.
+4. The last score and initials will be displayed on the main screen.
+5. Click "Start Game" to begin a new game session.
 
-To use the random password generator:
-
-1. Load the page containing the HTML input and buttons.
-2. Click the "Generate" button.
-3. When prompted, enter the desired password length (8-128 characters) and select the types of characters to include.
-4. A random password matching the selected criteria will be generated and populated into the password input field.
-5. If unhappy with the generated password, click the "Reroll" button to generate a new random password with the same criteria.
-6. The password can then be copied from the input field for use.
-
-Some usage notes:
-
-- The prompted criteria will be remembered between generations in the current session. Refreshing the page will reset them.
-- At least one character type must be selected when prompted.
-- The generator includes lowercase, uppercase, numbers, and special characters.
-- Clicking "Re-roll" will generate a new password matching the previous criteria, lenth and character types.
-
-So in summary, generate a custom password, re-roll it, and copy it!
+The app is fully playable and saves high scores locally.
 
 ## Screenshots
 
@@ -53,10 +27,11 @@ The following image demonstrates the web application's appearance and functional
 ![Alt text](./assets/images/mockup-1.png)
 ![Alt text](./assets/images/mockup-2.png)
 ![Alt text](./assets/images/mockup-3.png)
+![Alt text](./assets/images/mockup-4.png)
 
 ## Deployment Link
 
-https://jmlouf.github.io/password-generator/
+https://jmlouf.github.io/javascript-quiz-game/
 
 ## Credits
 
@@ -65,10 +40,14 @@ This project was created for educational purposes as part of the KU Coding Bootc
 The following resources were utilized:
 
 - KU Coding Bootcamp Spot - Provided project requirements and guidelines.
-- W3Schools - General reference for HTML, CSS and JavaScript.
-- Tech with Tim - YouTube channel with web development tutorials.
-- freeCodeCamp.org - Reference for JavaScript concepts and best practices.
-- https://owasp.org/www-community/password-special-characters – A list of password special characters.
+- KU GitLab Project - Provided examples of code used within this project.
+- W3Schools - Referenced for general HTML, CSS and JavaScript questions.
+- freeCodeCamp.org - Referenced for general JavaScript concepts and best practices.
+- InterviewBit.com - Referenced for interview questions used for JavaScript question bank.
+- BBBootstrap.com - Reference for code snippets and templates used for JavaScript question bank.
+- dev.to - Referenced for CSS styling.
+- stackoverflow.com - Referenced for dynamic generation of quiz questions within this project.
+- MDN Web Docs - Referenced for working with objects.
 
 ## License
 
