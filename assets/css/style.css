@@ -8,6 +8,10 @@ body {
     padding: 2%;
 }
 
+h1 {
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
 /* Parent element. */
 .main {
     display: flex;
